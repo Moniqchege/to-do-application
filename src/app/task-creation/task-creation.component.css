@@ -1,0 +1,111 @@
+.task-creation-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .task-creation-container h2 {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 8px;
+    display: block;
+  }
+  
+  input, select, textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.3s ease-in-out;
+  }
+  
+  input:focus, select:focus, textarea:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+  
+  textarea {
+    resize: vertical;
+    height: 150px;
+  }
+  
+  input[type="file"] {
+    padding: 5px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+  }
+  
+  input[type="file"]:hover {
+    cursor: pointer;
+  }
+  
+  button {
+    width: 100%;
+    padding: 14px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  small {
+    display: block;
+    margin-top: 8px;
+    color: #28a745;
+    font-size: 14px;
+  }
+  
+  input.ng-invalid,
+  textarea.ng-invalid,
+  select.ng-invalid {
+    border-color: #e74c3c;
+  }
+  
+  input.ng-valid,
+  textarea.ng-valid,
+  select.ng-valid {
+    border-color: #2ecc71;
+  }
+  
+  @media (max-width: 768px) {
+    .task-creation-container {
+      padding: 20px;
+      margin: 20px;
+    }
+  
+    button {
+      font-size: 16px;
+      padding: 12px;
+    }
+  }
+  
