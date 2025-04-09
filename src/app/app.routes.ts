@@ -1,13 +1,37 @@
 import { Routes } from '@angular/router';
-import { SignupComponent } from './signup/signup.component';
-import { HomeComponent } from './home/home.component';
-import { SigninComponent } from './signin/signin.component';
-import { TaskCreationComponent } from './task-creation/task-creation.component';
+import { SignupComponent } from './pages/signup/signup.component';
+import { HomeComponent } from './pages/home/home.component';
+import { SigninComponent } from './pages/signin/signin.component';
+import { TaskCreationComponent } from './pages/task-creation/task-creation.component';
 
 export const routes: Routes = [
-    { path: '', component: HomeComponent},
-    { path: 'signin', component: SigninComponent},
-    { path: 'signup', component: SignupComponent},
-    { path: 'task-creation', component: TaskCreationComponent},
+    { 
+        path: '', 
+        redirectTo: 'signin', 
+        pathMatch: 'full' 
+    },
+    { 
+        path: 'signin', 
+        component: SigninComponent
+    },
+    { 
+        path: '', 
+        component: HomeComponent,
+        children: [
+            {
+                path: 'task-creation',
+                component: TaskCreationComponent
+            },
+            { 
+                path: 'signup', 
+                component: SignupComponent
+            },
+            { 
+                path: 'signin', 
+                component: SigninComponent
+            },
+
+        ]
+    },
 
 ];
