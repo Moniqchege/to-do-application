@@ -27,10 +27,6 @@ export const routes: Routes = [
                 path: 'signup', 
                 component: SignupComponent
             },
-            { 
-                path: 'signin', 
-                component: SigninComponent
-            },
             {
                 path: 'task-creation',
                 component: TaskCreationComponent
@@ -38,6 +34,14 @@ export const routes: Routes = [
             {
                 path: 'task-list',
                 component: TaskListComponent
+            },
+            {
+                path: 'create',
+                component: TaskCreationComponent
+            },
+            {
+                path: 'edit',
+                component: TaskCreationComponent
             }
 
         ]

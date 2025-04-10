@@ -67,6 +67,6 @@ export class TaskCreationComponent {
       this.taskService.addTask(taskData);
     }
 
-    this.router.navigate(['/tasks']);
+    this.router.navigate(['/task-list']);
   }
 }

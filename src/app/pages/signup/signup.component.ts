@@ -25,7 +25,7 @@ export class SignupComponent {
     this.http.post("https://freeapi.miniprojectideas.com/api/User/CreateNewUser",this.signupObj).subscribe((res:any)=>{
       if(res.result){
         alert("Signup Successful");
-        this.router.navigateByUrl('signin')
+        this.router.navigateByUrl('/signin')
       } else {
         alert(res.message)
       }
