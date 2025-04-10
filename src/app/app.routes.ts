@@ -17,16 +17,16 @@ export const routes: Routes = [
         component: SigninComponent
     },
     { 
+        path: 'signup', 
+        component: SignupComponent
+    },
+    { 
         path: '', 
         component: HomeComponent,
         children: [
             {
-                path: 'task-creation',
-                component: TaskCreationComponent
-            },
-            { 
-                path: 'signup', 
-                component: SignupComponent
+                path: 'home',
+                component: HomeComponent
             },
             {
                 path: 'task-creation',
@@ -48,10 +48,6 @@ export const routes: Routes = [
                 path: 'navbar',
                 component: NavbarComponent
             },
-            {
-                path: 'view-my-tasks',
-                component: TaskListComponent
-            }
 
         ]
     },

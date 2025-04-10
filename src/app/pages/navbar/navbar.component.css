@@ -3,6 +3,9 @@
   opacity: 1; 
   filter: none; 
   transition: none; 
+  padding: 10px 20px;
+  background-color: #343a40;
+
 }
 
 .navbar-brand {
@@ -27,7 +30,7 @@
 
 .nav-link {
   font-size: 1.1rem;
-  color: #fff;
+  color: #ffffff;
   transition: color 0.3s ease;
   cursor: pointer;
 }

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
@@ -25,7 +26,7 @@ export class SignupComponent {
     this.http.post("https://freeapi.miniprojectideas.com/api/User/CreateNewUser",this.signupObj).subscribe((res:any)=>{
       if(res.result){
         alert("Signup Successful");
-        this.router.navigateByUrl('/signin')
+        this.router.navigateByUrl('signin')
       } else {
         alert(res.message)
       }
