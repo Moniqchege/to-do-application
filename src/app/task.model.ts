@@ -6,5 +6,6 @@ export interface Task {
     attachmentBase64?: string;
     attachmentName?: string;
     status: string;
+    completed: boolean;
   }
   

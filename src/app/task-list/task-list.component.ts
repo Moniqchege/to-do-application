@@ -16,15 +16,10 @@ export class TaskListComponent {
 
   constructor(private taskService: TaskService, private router: Router) {
     this.tasks = this.taskService.getTasks();
-    console.log(this.tasks);
   }
 
   editTask(index: number): void {
-    this.router.navigate(['/task-creation']);
-  }
-
-  newTask(index: number): void {
-    this.router.navigate(['/task-creation']);
+    this.router.navigate(['/task-creation'], { queryParams: { index } });
   }
 
   deleteTask(index: number): void {
@@ -32,7 +27,9 @@ export class TaskListComponent {
     this.tasks = this.taskService.getTasks();
   }
 
-  updateStatus(index:number, newStatus: string): void {
-    this.taskService.updateTaskStatus(index, newStatus);
+  updateStatus(index: number, newStatus: boolean): void {
+    const status = newStatus ? 'completed' : 'in-progress';
+    this.taskService.updateTaskStatus(index, status);
+    this.tasks = this.taskService.getTasks();
   }
 }

@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import { SignupComponent } from './pages/signup/signup.component';
-import { SigninComponent } from './pages/signin/signin.component';
-import { TaskCreationComponent } from './pages/task-creation/task-creation.component';
-import { TaskListComponent } from './pages/task-list/task-list.component';
+import { SignupComponent } from './signup/signup.component';
+import { SigninComponent } from './signin/signin.component';
 import { LayoutComponent } from './layout/layout.component';
+import { TaskCreationComponent } from './task-creation/task-creation.component';
+import { TaskListComponent } from './task-list/task-list.component';
 
 export const routes: Routes = [
     { 
