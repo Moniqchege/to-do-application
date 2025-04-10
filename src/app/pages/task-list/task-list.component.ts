@@ -31,4 +31,8 @@ export class TaskListComponent {
     this.taskService.deleteTask(index);
     this.tasks = this.taskService.getTasks();
   }
+
+  updateStatus(index:number, newStatus: string): void {
+    this.taskService.updateTaskStatus(index, newStatus);
+  }
 }

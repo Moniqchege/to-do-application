@@ -5,5 +5,6 @@ export interface Task {
     priority: 'Low' | 'Medium' | 'High';
     attachmentBase64?: string;
     attachmentName?: string;
+    status: string;
   }
   

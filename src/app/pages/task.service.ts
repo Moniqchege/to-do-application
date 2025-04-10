@@ -12,7 +12,11 @@ export class TaskService {
   }
 
   addTask(task: Task): void {
-    this.tasks.push({ ...task });
+    this.tasks.push({ ...task, status: 'To Do' });
+  }
+
+  updateTaskStatus(index: number, status: string): void {
+    this.tasks[index].status = status;
   }
 
   updateTask(index: number, updatedTask: Task): void {

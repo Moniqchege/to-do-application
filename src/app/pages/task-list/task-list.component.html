@@ -4,7 +4,12 @@
   <p class="task-description">{{ task.description }}</p>
   <p class="task-due-date"><strong>Due:</strong> {{ task.dueDate }}</p>
   <p class="task-piority"><strong>Priority:</strong> {{ task.priority }}</p>
+  <p class="task-status"><strong>Status</strong>{{ task.status }}</p>
   
+<div class="status-buttons">
+  <button class="status-btn" (click)="updateStatus(i, 'In Progress')" [disabled]="task.status === 'In Progress'">In Progress</button>
+  <button class="status-btn" (click)="updateStatus(i, 'Completed')" [disabled]="task.status === 'Completed'">Completed</button>
+</div>
 <div class="action-buttons">
   <button class="edit-btn" (click)="editTask(i)">Edit</button>
   <button class="delete-btn" (click)="deleteTask(i)">Delete</button>
