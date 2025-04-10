@@ -11,11 +11,11 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
 })
 export class SignupComponent {
   signupObj: any = {
-    "FirstName": "",
-    "LastName":"",
-    "EmailId": "",
-    "password": "",
-    "ConfirmPassword":"",
+    "FirstName": "monicah",
+    "LastName":"chege",
+    "EmailId": "monicah@gmail.com",
+    "password": "password",
+    "ConfirmPassword":"password",
   };
 
   http = inject(HttpClient);

@@ -1,10 +1,9 @@
 import { Routes } from '@angular/router';
 import { SignupComponent } from './pages/signup/signup.component';
-import { HomeComponent } from './pages/home/home.component';
 import { SigninComponent } from './pages/signin/signin.component';
 import { TaskCreationComponent } from './pages/task-creation/task-creation.component';
 import { TaskListComponent } from './pages/task-list/task-list.component';
-import { NavbarComponent } from './pages/navbar/navbar.component';
+import { LayoutComponent } from './layout/layout.component';
 
 export const routes: Routes = [
     { 
@@ -22,12 +21,9 @@ export const routes: Routes = [
     },
     { 
         path: '', 
-        component: HomeComponent,
+        component: LayoutComponent,
         children: [
-            {
-                path: 'home',
-                component: HomeComponent
-            },
+            
             {
                 path: 'task-creation',
                 component: TaskCreationComponent
@@ -43,10 +39,6 @@ export const routes: Routes = [
             {
                 path: 'edit',
                 component: TaskCreationComponent
-            },
-            {
-                path: 'navbar',
-                component: NavbarComponent
             },
 
         ]
