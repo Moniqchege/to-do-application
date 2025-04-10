@@ -4,6 +4,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { SigninComponent } from './pages/signin/signin.component';
 import { TaskCreationComponent } from './pages/task-creation/task-creation.component';
 import { TaskListComponent } from './pages/task-list/task-list.component';
+import { NavbarComponent } from './pages/navbar/navbar.component';
 
 export const routes: Routes = [
     { 
@@ -42,6 +43,14 @@ export const routes: Routes = [
             {
                 path: 'edit',
                 component: TaskCreationComponent
+            },
+            {
+                path: 'navbar',
+                component: NavbarComponent
+            },
+            {
+                path: 'view-my-tasks',
+                component: TaskListComponent
             }
 
         ]

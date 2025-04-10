@@ -1,19 +1,17 @@
-<nav class="navbar navbar-expand-sm bg-light">
-
-  <div class="container-fluid">
-    <!-- Links -->
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link 1</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link 2</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link 3</a>
-      </li>
-    </ul>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Nest</title>
+  <link rel="stylesheet" href="home.component.css">
+</head>
+<body>
+  <div>
+    <h1>Welcome to Task Nest!</h1>
+    <p>A smart application that helps you manage their tasks in an organized manner</p>
+    <button routerLink="/task-creation" class="btn btn-primary">Create Task</button>
+    <button routerLink="/task-list" class="btn btn-secondary">View My Tasks</button>
   </div>
-
-</nav>
-<router-outlet></router-outlet>
+</body>
+</html>
