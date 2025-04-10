@@ -3,6 +3,7 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { HomeComponent } from './pages/home/home.component';
 import { SigninComponent } from './pages/signin/signin.component';
 import { TaskCreationComponent } from './pages/task-creation/task-creation.component';
+import { TaskListComponent } from './pages/task-list/task-list.component';
 
 export const routes: Routes = [
     { 
@@ -30,6 +31,14 @@ export const routes: Routes = [
                 path: 'signin', 
                 component: SigninComponent
             },
+            {
+                path: 'task-creation',
+                component: TaskCreationComponent
+            },
+            {
+                path: 'task-list',
+                component: TaskListComponent
+            }
 
         ]
     },

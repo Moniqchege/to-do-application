@@ -6,7 +6,7 @@
       <div class="form-row">
         <div class="form-group">
           <label for="firstName">First Name</label>
-          <input type="text" id="firstName" class="form-control" placeholder="First Name" required />
+          <input type="text" id="firstName" name="FirstName" class="form-control" placeholder="First Name" required />
         </div>
         <div class="form-group">
           <label for="lastName">Last Name</label>
@@ -16,7 +16,7 @@
   
       <div class="form-group">
         <label for="email">Email Address</label>
-        <input type="email" id="email" class="form-control" placeholder="Enter your email" required />
+        <input type="email" name="EmailId" class="form-control" id="InputEmail" placeholder="Enter email" />
       </div>
   
       <div class="form-row">
@@ -30,11 +30,12 @@
         </div>
       </div>
   
-      <button type="submit" class="btn btn-primary">Sign Up</button>
+      <button type="submit" (click)="onSignup()" class="btn btn-primary">Sign Up</button>
   
       <p class="signin-link">
         Already have an account? <a routerLink="/signin">Sign in</a>
       </p>
     </form>
   </div>
+  <router-outlet></router-outlet>
   

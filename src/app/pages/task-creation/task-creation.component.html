@@ -1,73 +1,28 @@
-<div class="task-creation-container">
-    <h2>Create New Task</h2>
-    <form>
-      <div class="form-group">
-        <label for="taskTitle">Task Title:</label>
-        <input
-          id="taskTitle"
-          type="text"
-          class="form-control"
-          name="taskTitle"
-          required
-          placeholder="Enter task title"
-        />
-      </div>
-  
-      <div class="form-group">
-        <label for="taskDescription">Description:</label>
-        <textarea
-          id="taskDescription"
-          class="form-control"
-          name="taskDescription"
-          required
-          placeholder="Enter task description"
-        ></textarea>
-      </div>
-  
-      <div class="form-group">
-        <label for="dueDate">Due Date:</label>
-        <input
-          id="dueDate"
-          type="date"
-          class="form-control"
-          name="dueDate"
-          required
-        />
-      </div>
-  
-      <div class="form-group">
-        <label for="priority">Priority Level:</label>
-        <select
-          id="priority"
-          class="form-control"
-          name="priority"
-          required
-        >
-          <option value="Low">Low</option>
-          <option value="Medium">Medium</option>
-          <option value="High">High</option>
-        </select>
-      </div>
-  
-      <div class="form-group">
-        <label for="attachments">Attachments (Optional):</label>
-        <input
-          id="attachments"
-          type="file"
-          class="form-control"
-          accept="image/*,application/pdf"
-        />
-        <small ngIf="task.attachments" class="form-text text-muted">
-          Attachment added successfully!
-        </small>
-      </div>
-  
-      <button
-        type="submit"
-        class="btn btn-primary"
-      >
-        Create Task
-      </button>
-    </form>
-  </div>
-  
+<form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+  <label for="title">Title:</label>
+  <input id="title" type="text" formControlName="title" required />
+
+  <label for="description">Description:</label>
+  <textarea id="description" formControlName="description"></textarea>
+
+  <label for="dueDate">Due Date:</label>
+  <input id="dueDate" type="date" formControlName="dueDate" required />
+
+  <label for="priority">Priority:</label>
+  <select id="priority" formControlName="priority">
+    <option value="Low">Low</option>
+    <option value="Medium">Medium</option>
+    <option value="High">High</option>
+  </select>
+
+  <label for="attachment">Attachment:</label>
+  <input id="attachment" type="file" (change)="onFileChange($event)" />
+
+  <button type="submit" [disabled]="taskForm.invalid">
+    {{ taskIndex !== null ? 'Update Task' : 'Create Task' }}
+  </button>
+</form>
+
+
+<router-outlet></router-outlet>
+
