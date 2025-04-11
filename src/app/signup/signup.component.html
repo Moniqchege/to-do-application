@@ -1,34 +1,74 @@
-<div class="signup-container">
-  <h2>Signup</h2>
-  
-  <form (ngSubmit)="onSignup()">
-    <div>
-      <label for="firstName">First Name</label>
-      <input type="text" id="firstName" [(ngModel)]="signupObj.firstName" name="firstName" required>
-    </div>
+<section class="h-100 gradient-form" style="background-color: #eee;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-10">
+        <div class="card rounded-3 text-black">
+          <div class="row g-0">
+            <div class="col-lg-6">
+              <div class="card-body p-md-5 mx-md-4">
 
-    <div>
-      <label for="lastName">Last Name</label>
-      <input type="text" id="lastName" [(ngModel)]="signupObj.lastName" name="lastName" required>
-    </div>
+                <div class="text-center">
+                  <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
+                    style="width: 185px;" alt="logo">
+                  <h4 class="mt-1 mb-5 pb-1">Task Nest</h4>
+                </div>
 
-    <div>
-      <label for="email">Email</label>
-      <input type="email" id="email" [(ngModel)]="signupObj.email" name="email" required>
-    </div>
+                <form>
+                  <div data-mdb-input-init class="form-outline mb-4">
+                    <input type="text" id="firstName" name="firstName" [(ngModel)]="signupObj.firstName" class="form-control"
+                      placeholder="First Name" />
+                  </div>
 
-    <div>
-      <label for="password">Password</label>
-      <input type="password" id="password" [(ngModel)]="signupObj.password" name="password" required>
-    </div>
+                  <div data-mdb-input-init class="form-outline mb-4">
+                    <input type="text" id="lastName" name="lastName" [(ngModel)]="signupObj.lastName" class="form-control"
+                      placeholder="Last Name" />
+                  </div>
 
-    <div>
-      <label for="confirmPassword">Confirm Password</label>
-      <input type="password" id="confirmPassword" [(ngModel)]="signupObj.confirmPassword" name="confirmPassword" required>
-    </div>
+                  <div data-mdb-input-init class="form-outline mb-4">
+                    <input type="email" id="EmailId" name="EmailId" [(ngModel)]="signupObj.EmailId" class="form-control"
+                      placeholder="Enter Email " />
+                  </div>
 
-    <div>
-      <button type="submit">Signup</button>
+                  <div data-mdb-input-init class="form-outline mb-4">
+                    <input type="password" id="InputPassword" name="password" [(ngModel)]="signupObj.password" class="form-control" placeholder="Enter Password" />
+                  </div>
+                  <div data-mdb-input-init class="form-outline mb-4">
+                    <input type="password" id="ConfirmPassword" name="confirmPassword" [(ngModel)]="signupObj.confirmPassword" class="form-control" placeholder="Confirm Password" />
+                  </div>
+
+                  <div class="text-center pt-1 mb-5 pb-1 stacked-buttons">
+                    <button
+                      data-mdb-button-init
+                      data-mdb-ripple-init
+                      class="btn login-button"
+                      type="button"
+                      (click)="onSignup()"
+                    >
+                      Sign Up
+                    </button>
+                  </div>
+                  
+                  
+                  
+
+                  <div class="d-flex align-items-center justify-content-center pb-4">
+                    <p class="mb-0 me-2">Already have an account?</p>
+                    <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-danger" (click)="goToSignin()">Login</button>
+                  </div>
+
+                </form>
+
+              </div>
+            </div>
+            <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+              <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                <h4 class="mb-4">At Task Nest, We are more than just an App</h4>
+                <p>Task Nest helps you organize your day, manage your tasks effortlessly, and boost your productivity, all in one place. We're your daily partner in productivity, helping you stay focused, organized, and in control.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </form>
-</div>
+  </div>
+</section>

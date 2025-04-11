@@ -12,7 +12,7 @@ export class SignupComponent {
   signupObj: any = {
     firstName: '',
     lastName: '',
-    email: '',
+    EmailId: '',
     password: '',
     confirmPassword: ''
   };
@@ -34,5 +34,9 @@ export class SignupComponent {
 
     alert("Signup Successful");
     this.router.navigateByUrl('signin'); 
+  }
+
+  goToSignin() {
+    this.router.navigate(['/signin'])
   }
 }

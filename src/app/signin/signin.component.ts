@@ -30,6 +30,7 @@ export class SigninComponent {
       this.router.navigate(['/task-creation']); 
     } else {
       alert('Invalid email or password');
+      console.log('button clicked')
     }
   }
 

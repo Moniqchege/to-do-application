@@ -1,37 +1,55 @@
-.signup-container {
-  width: 300px;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
+.gradient-custom-2 {
+  background: #fccb90;
+  
+  background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+  
+  background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+  }
+  
+  @media (min-width: 768px) {
+  .gradient-form {
+  height: 100vh !important;
+  }
+  }
+  @media (min-width: 769px) {
+  .gradient-custom-2 {
+  border-top-right-radius: .3rem;
+  border-bottom-right-radius: .3rem;
+  }
+  }
 
-.signup-container h2 {
-  text-align: center;
-}
+  .stacked-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
-.signup-container form {
-  display: flex;
-  flex-direction: column;
-}
-
-.signup-container label {
-  margin-bottom: 5px;
-}
-
-.signup-container input {
-  padding: 8px;
-  margin-bottom: 10px;
-}
-
-.signup-container button {
-  padding: 10px;
-  background-color: #4CAF50;
+  .login-button {
+    width: 100%;
+  max-width: 300px;
+  background: linear-gradient(to right, #6a11cb, #2575fc);
   color: white;
+  font-size: 18px;
+  font-weight: 600;
+  padding: 14px 0;
   border: none;
-  cursor: pointer;
-}
+  border-radius: 8px;
+  transition: background 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  }
 
-.signup-container button:hover {
-  background-color: #45a049;
-}
+  .login-button:hover {
+    background: linear-gradient(to right, #5b0eaa, #1e60e2);
+    transform: scale(1.02);
+  }
+  
+  .stacked-buttons button {
+    width: 100%;
+    max-width: 250px;
+  }
+  
+  .forgot-password {
+    margin-top: 8px;
+    font-size: 14px;
+  }
+  
