@@ -27,9 +27,13 @@ export class SigninComponent {
 
     if (this.loginObj.EmailId === user.email && this.loginObj.password === user.password) {
       alert('Login Successful');
-      this.router.navigateByUrl('task-creation'); 
+      this.router.navigate(['/task-creation']); 
     } else {
       alert('Invalid email or password');
     }
+  }
+
+  goToSignup() {
+    this.router.navigate(['/signup'])
   }
 }

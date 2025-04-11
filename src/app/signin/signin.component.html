@@ -1,36 +1,62 @@
-<div class="landing-container">
-    <div class="welcome-section">
-        <h1>Welcome to TaskNest</h1>
-        <p>Manage your tasks, stay productive, and get things done all in one place. Start organizing your day and boost your productivity with TaskNest today!</p>
-    </div>
-  
-    <div class="signin-card">
-      <form>
-        <div class="form-group">
-          <i class="login_icon fas fa-user"></i>
-          <input type="email" name="EmailId" [(ngModel)]="loginObj.EmailId" class="form-control" id="InputEmail" placeholder="Enter email" />
+<section class="h-100 gradient-form" style="background-color: #eee;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-10">
+        <div class="card rounded-3 text-black">
+          <div class="row g-0">
+            <div class="col-lg-6">
+              <div class="card-body p-md-5 mx-md-4">
+
+                <div class="text-center">
+                  <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
+                    style="width: 185px;" alt="logo">
+                  <h4 class="mt-1 mb-5 pb-1">Task Nest</h4>
+                </div>
+
+                <form>
+                  <div data-mdb-input-init class="form-outline mb-4">
+                    <input type="email" id="form2Example11" class="form-control"
+                      placeholder="Enter Email" />
+                  </div>
+
+                  <div data-mdb-input-init class="form-outline mb-4">
+                    <input type="password" id="form2Example22" class="form-control" placeholder="Enter Password" />
+                  </div>
+
+                  <div class="text-center pt-1 mb-5 pb-1 stacked-buttons">
+                    <button
+                      data-mdb-button-init
+                      data-mdb-ripple-init
+                      class="btn login-button"
+                      type="button"
+                      (click)="onLogin()"
+                    >
+                      Log in
+                    </button>
+                    <a class="text-muted forgot-password" href="#!">Forgot password?</a>
+                  </div>
+                  
+                  
+                  
+
+                  <div class="d-flex align-items-center justify-content-center pb-4">
+                    <p class="mb-0 me-2">Don't have an account?</p>
+                    <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-danger" (click)="goToSignup()">Create new</button>
+                  </div>
+
+                </form>
+
+              </div>
+            </div>
+            <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+              <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                <h4 class="mb-4">At Task Nest, We are more than just an App</h4>
+                <p>Task Nest helps you organize your day, manage your tasks effortlessly, and boost your productivity, all in one place. We're your daily partner in productivity, helping you stay focused, organized, and in control.</p>
+              </div>
+            </div>
+          </div>
         </div>
-  
-        <div class="form-group">
-          <i class="login_icon fas fa-user"></i>
-          <input type="password" name="password" [(ngModel)]="loginObj.password"  class="form-control" id="InputPassword" placeholder="Enter password" />
-        </div>
-  
-        <button type="submit" (click)="onLogin()" class="btn btn-primary">Sign In</button>
-      </form>
-  
-      <div class="social-divider">
-        <span>or</span>
       </div>
-  
-      <div class="social-login">
-        <button class="btn-social google">Sign in with Google</button>
-      </div>
-  
-      <p class="signup-text">
-        Don’t have an account? <a routerLink="/signup">Sign up</a>
-      </p>
     </div>
   </div>
-  <router-outlet></router-outlet>
-  
+</section>

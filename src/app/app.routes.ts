@@ -40,8 +40,6 @@ export const routes: Routes = [
                 path: 'edit',
                 component: TaskCreationComponent
             },
-
         ]
-    },
-
+    }
 ];
