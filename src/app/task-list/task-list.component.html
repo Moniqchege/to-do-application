@@ -1,42 +1,41 @@
-<div class="task-container">
-  <h2>Task List</h2>
+<div class="task-list-container">
+  <h2>Your Tasks</h2>
 
   <ul class="task-list">
     <li *ngFor="let task of tasks; let i = index" class="task-item">
-      <input type="checkbox" placeholder="i" [checked]="task.completed" (change)="toggleCompleted(i)" />
-      <span [class.completed]="task.completed">{{ task.title }} - {{ task.priority }}</span>
-      <div class="icons">
-        <i class="fas fa-edit" (click)="openEditModal(i)"></i>
-        <i class="fas fa-trash-alt" (click)="deleteTask(i)"></i>
+      <div class="task-details">
+        <h3>{{ task.title }}</h3>
+        <p>{{ task.description }}</p>
+        <span>Due: {{ task.dueDate }}</span><br />
+        <span>Priority: {{ task.priority }}</span><br />
+        <span
+          *ngIf="task.status === 'In Progress'"
+          class="status in-progress"
+        >
+          In Progress
+        </span>
+        <span
+          *ngIf="task.status === 'Completed'"
+          class="status completed"
+        >
+          Completed
+        </span>
+      </div>
+
+      <div class="task-actions">
+        <i class="fas fa-clock progress-icon" title="Mark In Progress" (click)="markInProgress(i)"></i>
+        <span class="custom-complete-icon" title="Mark Completed" (click)="markCompleted(i)">
+          <i class="fas fa-check"></i>
+        </span>
+        <i class="fas fa-edit edit-icon" title="Edit Task" (click)="openEdit(i)"></i>
+        <i class="fas fa-trash delete-icon" title="Delete Task" (click)="deleteTask(i)"></i>
       </div>
     </li>
   </ul>
-</div>
 
-<div class="modal-backdrop" *ngIf="showEditModal">
-  <div class="modal">
-    <h3>Edit Task</h3>
-    <form (ngSubmit)="saveEdit()">
-      <label for="title">Title:</label>
-      <input id="title" type="text" [(ngModel)]="editTaskObj.title" name="title" required />
-
-      <label for="description">Description:</label>
-      <textarea id="description" [(ngModel)]="editTaskObj.description" name="description"></textarea>
-
-      <label for="dueDate">Due Date:</label>
-      <input id="dueDate" type="date" [(ngModel)]="editTaskObj.dueDate" name="dueDate" required />
-
-      <label for="priority">Priority:</label>
-      <select id="priority" [(ngModel)]="editTaskObj.priority" name="priority">
-        <option value="Low">Low</option>
-        <option value="Medium">Medium</option>
-        <option value="High">High</option>
-      </select>
-
-      <div class="modal-buttons">
-        <button type="submit">Save</button>
-        <button type="button" (click)="cancelEdit()">Cancel</button>
-      </div>
-    </form>
-  </div>
+  <app-modal-popup
+    [task]="selectedTask"
+    [index]="selectedIndex"
+    [saveFn]="saveEditedTask.bind(this)"
+  ></app-modal-popup>
 </div>

@@ -1,68 +1,69 @@
-.task-container {
-  padding: 20px;
-  max-width: 600px;
+.task-list-container {
+  max-width: 700px;
   margin: 0 auto;
+  padding: 30px;
+  text-align: center;
 }
 
 .task-list {
-  list-style: none;
+  list-style-type: none;
   padding: 0;
 }
 
 .task-item {
+  background-color: #f9f9f9;
+  margin: 15px 0;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  background: #f5f5f5;
-  padding: 12px;
-  border-radius: 8px;
+}
+
+.task-details {
   margin-bottom: 10px;
+  line-height: 1.6;
 }
 
-.task-item .icons {
+.task-actions {
   display: flex;
-  gap: 10px;
-}
-
-.task-item i {
-  cursor: pointer;
-  font-size: 1.2rem;
-  color: #555;
-}
-
-.task-item i:hover {
-  color: #000;
-}
-
-.completed {
-  text-decoration: line-through;
-  color: gray;
-}
-
-.modal-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
+  gap: 15px;
   justify-content: center;
-  z-index: 999;
 }
 
-.modal {
-  background-color: #fff;
-  padding: 25px;
-  border-radius: 10px;
-  width: 90%;
-  max-width: 400px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+.task-actions i {
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: color 0.3s ease;
 }
 
-.modal-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 15px;
+.edit-icon:hover {
+  color: #007bff;
+}
+
+.delete-icon:hover {
+  color: #dc3545;
+}
+
+.progress-icon:hover {
+  color: darkorange;
+}
+
+.complete-icon:hover {
+  color: green;
+}
+
+.status {
+  display: inline-block;
+  margin-top: 8px;
+  font-weight: bold;
+}
+
+.status.in-progress {
+  color: darkorange;
+}
+
+.status.completed {
+  color: green;
 }

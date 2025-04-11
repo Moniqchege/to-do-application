@@ -1,23 +1,19 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { TaskService } from '../task.service';
 import { Task } from '../task.model';
+import { TaskService } from '../task.service';
+import { ModalPopupComponent } from '../modal-popup/modal-popup.component';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, FormsModule],
+  imports: [CommonModule, ModalPopupComponent],
   templateUrl: './task-list.component.html',
   styleUrls: ['./task-list.component.css']
 })
 export class TaskListComponent {
   tasks: Task[] = [];
-
-  showEditModal = false;
-  editTaskIndex: number | null = null;
-  editTaskObj: Task = {
+  selectedTask: Task = {
     title: '',
     description: '',
     dueDate: '',
@@ -25,28 +21,34 @@ export class TaskListComponent {
     status: '',
     completed: false
   };
+  selectedIndex: number | null = null;
 
   constructor(private taskService: TaskService) {
     this.tasks = this.taskService.getTasks();
   }
 
-  openEditModal(index: number): void {
-    this.editTaskIndex = index;
-    this.editTaskObj = { ...this.tasks[index] };
-    this.showEditModal = true;
+  openEdit(index: number): void {
+    this.selectedTask = { ...this.tasks[index] };
+    this.selectedIndex = index;
+
+    const modal = document.getElementById('editModal');
+  if (modal) {
+    modal.classList.add('show');
+    modal.style.display = 'flex';
+  }
   }
 
-  saveEdit(): void {
-    if (this.editTaskIndex !== null) {
-      this.taskService.updateTask(this.editTaskIndex, this.editTaskObj);
-      this.tasks = this.taskService.getTasks();
-      this.cancelEdit();
+  closeModal(): void {
+    const modal = document.getElementById('editModal');
+    if (modal) {
+      modal.classList.remove('show');
+      modal.style.display = 'none';
     }
   }
 
-  cancelEdit(): void {
-    this.showEditModal = false;
-    this.editTaskIndex = null;
+  saveEditedTask(index: number, updatedTask: Task): void {
+    this.taskService.updateTask(index, updatedTask);
+    this.tasks = this.taskService.getTasks();
   }
 
   deleteTask(index: number): void {
@@ -54,8 +56,14 @@ export class TaskListComponent {
     this.tasks = this.taskService.getTasks();
   }
 
-  toggleCompleted(index: number): void {
-    this.tasks[index].completed = !this.tasks[index].completed;
-    this.taskService.updateTask(index, this.tasks[index]);
+  markInProgress(index: number): void {
+    this.tasks[index].status = 'In Progress';
+    this.taskService.updateTaskStatus(index, 'In Progress');
   }
+  
+  markCompleted(index: number): void {
+    this.tasks[index].status = 'Completed';
+    this.taskService.updateTaskStatus(index, 'Completed');
+  }
+  
 }
