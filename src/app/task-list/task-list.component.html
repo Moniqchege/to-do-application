@@ -1,25 +1,42 @@
-<div class="task-list-container">
+<div class="task-container">
   <h2>Task List</h2>
-  
+
   <ul class="task-list">
     <li *ngFor="let task of tasks; let i = index" class="task-item">
-      <div class="task-info">
-        <input type="checkbox"
-                placeholder="i"
-               [checked]="task.completed" 
-               (change)="updateStatus(i, !task.completed)" 
-               id="status{{i}}" class="status-checkbox" />
-        
-        <span class="task-title">{{ task.title }}</span>
-        <span class="task-description">{{ task.description }}</span>
-      </div>
-
-      <div class="task-actions">
-        <i class="fas fa-edit" (click)="editTask(i)" title="Edit Task"></i>
-        
-        <i class="fas fa-trash" (click)="deleteTask(i)" title="Delete Task"></i>
+      <input type="checkbox" placeholder="i" [checked]="task.completed" (change)="toggleCompleted(i)" />
+      <span [class.completed]="task.completed">{{ task.title }} - {{ task.priority }}</span>
+      <div class="icons">
+        <i class="fas fa-edit" (click)="openEditModal(i)"></i>
+        <i class="fas fa-trash-alt" (click)="deleteTask(i)"></i>
       </div>
     </li>
   </ul>
-  
+</div>
+
+<div class="modal-backdrop" *ngIf="showEditModal">
+  <div class="modal">
+    <h3>Edit Task</h3>
+    <form (ngSubmit)="saveEdit()">
+      <label for="title">Title:</label>
+      <input id="title" type="text" [(ngModel)]="editTaskObj.title" name="title" required />
+
+      <label for="description">Description:</label>
+      <textarea id="description" [(ngModel)]="editTaskObj.description" name="description"></textarea>
+
+      <label for="dueDate">Due Date:</label>
+      <input id="dueDate" type="date" [(ngModel)]="editTaskObj.dueDate" name="dueDate" required />
+
+      <label for="priority">Priority:</label>
+      <select id="priority" [(ngModel)]="editTaskObj.priority" name="priority">
+        <option value="Low">Low</option>
+        <option value="Medium">Medium</option>
+        <option value="High">High</option>
+      </select>
+
+      <div class="modal-buttons">
+        <button type="submit">Save</button>
+        <button type="button" (click)="cancelEdit()">Cancel</button>
+      </div>
+    </form>
+  </div>
 </div>
