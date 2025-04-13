@@ -3,6 +3,9 @@ html, body {
   margin: 0;
   font-family: Arial, sans-serif;
   background-color: #f4f4f9;
+  background: #fccb90;
+  background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+  background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
 }
 
 form {
@@ -14,6 +17,9 @@ form {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   margin: 40px auto;
   font-size: 16px;
+  background: #fccb90;
+  background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+  background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
 }
 
 label {
@@ -47,25 +53,25 @@ input[type="file"] {
 }
 
 button {
-  width: 100%;
-  padding: 12px;
-  background-color: #4CAF50;
-  color: white;
-  font-size: 16px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+width: 100%;
+max-width: 300px;
+background: linear-gradient(to right, #6a11cb, #2575fc);
+color: white;
+font-size: 18px;
+font-weight: 600;
+padding: 14px 0;
+border: none;
+border-radius: 8px;
+transition: background 0.3s ease, transform 0.2s ease;
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-button:disabled {
-  background-color: #aaa;
-  cursor: not-allowed;
+button:hover {
+  background: linear-gradient(to right, #5b0eaa, #1e60e2);
+  transform: scale(1.02);
 }
 
-button:hover:not(:disabled) {
-  background-color: #45a049;
-}
+
 
 form .form-group {
   margin-bottom: 20px;

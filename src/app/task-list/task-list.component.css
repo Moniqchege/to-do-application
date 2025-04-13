@@ -3,6 +3,9 @@
   margin: 0 auto;
   padding: 30px;
   text-align: center;
+  background: #fccb90;
+  background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+  background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
 }
 
 .task-list {

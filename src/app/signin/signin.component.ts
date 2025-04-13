@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signin',
-  imports: [RouterLink, FormsModule, RouterOutlet],
+  imports: [ FormsModule, ],
   templateUrl: './signin.component.html',
   styleUrl: './signin.component.css'
 })
@@ -22,19 +22,22 @@ export class SigninComponent {
       alert('No user found, please sign up first.');
       return;
     }
-
+  
     const user = JSON.parse(storedUser);
-
-    if (this.loginObj.EmailId === user.email && this.loginObj.password === user.password) {
-      alert('Login Successful');
-      this.router.navigate(['/task-creation']); 
+    console.log('Stored user:', user);
+    console.log('Login input:', this.loginObj);
+  
+    if (this.loginObj.EmailId === user.email && this.loginObj.password === user.password){
+      this.router.navigate(['/task-creation']);
     } else {
       alert('Invalid email or password');
-      console.log('button clicked')
     }
   }
-
+  
   goToSignup() {
     this.router.navigate(['/signup'])
   }
+
+  
+  
 }

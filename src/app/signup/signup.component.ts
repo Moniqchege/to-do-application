@@ -1,10 +1,11 @@
+import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
-  imports: [RouterLink, FormsModule, RouterOutlet],
+  imports: [ FormsModule, CommonModule ],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css'
 })
@@ -17,6 +18,9 @@ export class SignupComponent {
     confirmPassword: ''
   };
 
+  showPassword: boolean = false;
+  showConfirmPassword: boolean = false;
+
   router = inject(Router);
 
   onSignup() {
@@ -28,15 +32,22 @@ export class SignupComponent {
     localStorage.setItem('user', JSON.stringify({
       firstName: this.signupObj.firstName,
       lastName: this.signupObj.lastName,
-      email: this.signupObj.email,
+      email: this.signupObj.EmailId,
       password: this.signupObj.password
     }));
 
-    alert("Signup Successful");
     this.router.navigateByUrl('signin'); 
   }
 
   goToSignin() {
     this.router.navigate(['/signin'])
+  }
+
+  togglePassword(){
+    this.showPassword = !this.showPassword
+  }
+
+  toggleConfirmPassword(){
+    this.showConfirmPassword = !this.showConfirmPassword;
   }
 }

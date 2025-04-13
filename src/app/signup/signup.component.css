@@ -18,6 +18,17 @@
   }
   }
 
+  .signup-card {
+    max-width: 800px;
+    margin: 0 auto;
+    border-radius: 1rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-body{
+    padding: 2rem 3rem;
+  }
+
   .stacked-buttons {
     display: flex;
     flex-direction: column;
@@ -51,5 +62,18 @@
   .forgot-password {
     margin-top: 8px;
     font-size: 14px;
+  }
+
+  .toggle-eye {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #666;
+  }
+
+  .card {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   }
   

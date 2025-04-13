@@ -4,7 +4,7 @@
       <div class="col-xl-10">
         <div class="card rounded-3 text-black">
           <div class="row g-0">
-            <div class="col-lg-6">
+            <div class="col-lg-6 signup-card">
               <div class="card-body p-md-5 mx-md-4">
 
                 <div class="text-center">
@@ -29,12 +29,38 @@
                       placeholder="Enter Email " />
                   </div>
 
-                  <div data-mdb-input-init class="form-outline mb-4">
-                    <input type="password" id="InputPassword" name="password" [(ngModel)]="signupObj.password" class="form-control" placeholder="Enter Password" />
+                  <div class="form-outline mb-4">
+                    <div class="position-relative mb-3">
+                      <input
+                        [type]="showPassword ? 'text' : 'password'"
+                        class="form-control"
+                        placeholder="Password"
+                        [(ngModel)]="signupObj.password"
+                        name="password"
+                      />
+                      <i
+                        class="fa toggle-eye"
+                        [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"
+                        (click)="togglePassword()"
+                      ></i>
+                    </div>
+                  
+                    <div class="position-relative">
+                      <input
+                        [type]="showConfirmPassword ? 'text' : 'password'"
+                        class="form-control"
+                        placeholder="Confirm Password"
+                        [(ngModel)]="signupObj.confirmPassword"
+                        name="confirmPassword"
+                      />
+                      <i
+                        class="fa toggle-eye"
+                        [ngClass]="showConfirmPassword ? 'fa-eye' : 'fa-eye-slash'"
+                        (click)="toggleConfirmPassword()"
+                      ></i>
+                    </div>
                   </div>
-                  <div data-mdb-input-init class="form-outline mb-4">
-                    <input type="password" id="ConfirmPassword" name="confirmPassword" [(ngModel)]="signupObj.confirmPassword" class="form-control" placeholder="Confirm Password" />
-                  </div>
+                  
 
                   <div class="text-center pt-1 mb-5 pb-1 stacked-buttons">
                     <button
