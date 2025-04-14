@@ -37,5 +37,6 @@
     [task]="selectedTask"
     [index]="selectedIndex"
     [saveFn]="saveEditedTask.bind(this)"
+    (modalClosed)="closeModal()"
   ></app-modal-popup>
 </div>

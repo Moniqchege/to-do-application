@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Task } from '../task.model';
@@ -12,6 +12,7 @@ import { Task } from '../task.model';
 })
 export class ModalPopupComponent {
   @Input() task: Task = {
+    id: '',
     title: '',
     description: '',
     dueDate: '',
@@ -22,6 +23,8 @@ export class ModalPopupComponent {
   @Input() index: number | null = null;
   @Input() saveFn!: (index: number, updatedTask: Task) => void;
 
+  @Output() modalClosed = new EventEmitter<void>();
+
   save(): void {
     if (this.index !== null) {
       this.saveFn(this.index, this.task);
@@ -30,9 +33,6 @@ export class ModalPopupComponent {
   }
 
   closeModal(): void {
-    const modal = document.getElementById('editModal');
-    if (modal) {
-      modal.classList.remove('show');
-      modal.style.display = 'none';
-    }  }
+    this.modalClosed.emit();
+  }
 }

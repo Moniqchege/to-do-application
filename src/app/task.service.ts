@@ -1,29 +1,38 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { Task } from './task.model';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
-  private tasks: Task[] = [];
+  private baseUrl = `${environment.apiUrl}/task-lists`;
 
-  getTasks(): Task[] {
-    return [...this.tasks];
+  constructor(private http: HttpClient) {}
+
+  getTasks(taskListId: string): Observable<Task[]> {
+    return this.http.get<Task[]>(`${this.baseUrl}/${taskListId}/tasks`);
   }
 
-  addTask(task: Task): void {
-    this.tasks.push({ ...task, status: 'To Do' });
+  getTask(taskListId: string, taskId: string): Observable<Task> {
+    return this.http.get<Task>(`${this.baseUrl}/${taskListId}/tasks/${taskId}`);
   }
 
-  updateTaskStatus(index: number, status: string): void {
-    this.tasks[index].status = status;
+  addTask(taskListId: string, task: Task): Observable<Task> {
+    return this.http.post<Task>(`${this.baseUrl}/${taskListId}/tasks`, task);
   }
 
-  updateTask(index: number, updatedTask: Task): void {
-    this.tasks[index] = updatedTask;
+  updateTask(taskListId: string, taskId: string, updatedTask: Task): Observable<Task> {
+    return this.http.put<Task>(`${this.baseUrl}/${taskListId}/tasks/${taskId}`, updatedTask);
   }
 
-  deleteTask(index: number): void {
-    this.tasks.splice(index, 1);
+  deleteTask(taskListId: string, taskId: string): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${taskListId}/tasks/${taskId}`);
+  }
+
+  updateTaskStatus(taskListId: string, taskId: string, status: string): Observable<Task> {
+    return this.http.put<Task>(`${this.baseUrl}/${taskListId}/tasks/${taskId}`, { status });
   }
 }
