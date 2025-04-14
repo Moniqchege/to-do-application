@@ -12,12 +12,12 @@ export class TaskService {
 
   constructor(private http: HttpClient) {}
 
-  getTasks(taskListId: string): Observable<Task[]> {
-    return this.http.get<Task[]>(`${this.baseUrl}/${taskListId}/tasks`);
-  }
-
   getTask(taskListId: string, taskId: string): Observable<Task> {
     return this.http.get<Task>(`${this.baseUrl}/${taskListId}/tasks/${taskId}`);
+  }
+
+  getTasks(taskListId: string): Observable<Task[]> {
+    return this.http.get<Task[]>(`${this.baseUrl}/${taskListId}/tasks`);
   }
 
   addTask(taskListId: string, task: Task): Observable<Task> {

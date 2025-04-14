@@ -19,7 +19,7 @@
   <input id="attachment" type="file" (change)="onFileChange($event)" />
 
   <button type="submit" [disabled]="taskForm.invalid">
-    {{ taskIndex !== null ? 'Update Task' : 'Create Task' }}
+    {{ taskId !== null ? 'Update Task' : 'Create Task' }}
   </button>
 </form>
 

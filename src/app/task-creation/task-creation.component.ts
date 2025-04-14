@@ -14,8 +14,10 @@ import { Task } from '../task.model';
 })
 export class TaskCreationComponent {
   taskForm: FormGroup;
-  taskIndex: number | null = null;
+  taskId: string | null = null;  // Use taskId instead of taskIndex
   pageTitle = 'Create Task';
+
+  taskListId: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -31,13 +33,28 @@ export class TaskCreationComponent {
       attachment: [null]
     });
 
-    const indexParam = this.route.snapshot.paramMap.get('id');
-    if (indexParam !== null) {
-      this.taskIndex = +indexParam;
-      const taskToEdit = this.taskService.getTasks()[this.taskIndex];
-      if (taskToEdit) {
-        this.pageTitle = 'Edit Task';
-        this.taskForm.patchValue(taskToEdit);
+    const taskListIdParam = this.route.snapshot.paramMap.get('taskListId');
+    const taskIdParam = this.route.snapshot.paramMap.get('id');
+
+    if (taskListIdParam) {
+      this.taskListId = taskListIdParam;
+
+      if (taskIdParam) {
+        this.taskId = taskIdParam;
+
+        // Fetch the task to edit
+        this.taskService.getTask(this.taskListId, this.taskId).subscribe({
+          next: (task) => {
+            if (task) {
+              this.pageTitle = 'Edit Task';
+              this.taskForm.patchValue(task); // Populate the form with task data
+            }
+          },
+          error: (err) => {
+            console.error('Error fetching task:', err);
+            // Optionally show a user-friendly error message
+          }
+        });
       }
     }
   }
@@ -61,12 +78,29 @@ export class TaskCreationComponent {
 
     const taskData: Task = this.taskForm.value;
 
-    if (this.taskIndex !== null) {
-      this.taskService.updateTask(this.taskIndex, taskData);
+    if (this.taskId) {
+      // If we have a taskId, update the task
+      this.taskService.updateTask(this.taskListId, this.taskId, taskData).subscribe({
+        next: () => {
+          this.router.navigate(['/task-list']);
+        },
+        error: (err) => {
+          console.error('Error updating task:', err);
+          // Optionally show an error message to the user
+        }
+      });
     } else {
-      this.taskService.addTask(taskData);
+      // Create a new task
+      this.taskService.addTask(this.taskListId, taskData).subscribe({
+        next: () => {
+          this.router.navigate(['/task-list']);
+        },
+        error: (err) => {
+          console.error('Error creating task:', err);
+        }
+      });
     }
-
-    this.router.navigate(['/task-list']);
   }
+  
+
 }

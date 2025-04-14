@@ -8,17 +8,15 @@
         <p>{{ task.description }}</p>
         <span>Due: {{ task.dueDate }}</span><br />
         <span>Priority: {{ task.priority }}</span><br />
-        <span
-          *ngIf="task.status === 'In Progress'"
-          class="status in-progress"
-        >
+        
+        <span *ngIf="task.status === 'In Progress'" class="status in-progress">
           In Progress
         </span>
-        <span
-          *ngIf="task.status === 'Completed'"
-          class="status completed"
-        >
+        <span *ngIf="task.status === 'Completed'" class="status completed">
           Completed
+        </span>
+        <span *ngIf="task.status === 'To Do'" class="status to-do">
+          To Do
         </span>
       </div>
 

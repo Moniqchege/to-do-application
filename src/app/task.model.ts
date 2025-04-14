@@ -4,14 +4,10 @@ export interface Task {
     description: string;
     dueDate: string;
     priority: string;
+    status: string;
     attachmentBase64?: string;
     attachmentName?: string;
-    status: string;
     completed: boolean;
   }
-  enum Priority {
-    'Low',
-    'Medium',
-    'High'
-  }
+  
   
