@@ -18,7 +18,6 @@ export class ModalPopupComponent {
     dueDate: '',
     priority: 'Low',
     status: '',
-    completed: false
   };
   @Input() index: number | null = null;
   @Input() saveFn!: (index: number, updatedTask: Task) => void;

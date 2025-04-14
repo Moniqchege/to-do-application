@@ -5,9 +5,6 @@ export interface Task {
     dueDate: string;
     priority: string;
     status: string;
-    attachmentBase64?: string;
-    attachmentName?: string;
-    completed: boolean;
   }
   
   

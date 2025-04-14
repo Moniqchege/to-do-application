@@ -20,9 +20,9 @@ export class TaskService {
     return this.http.get<Task[]>(`${this.baseUrl}/${taskListId}/tasks`);
   }
 
-  addTask(taskListId: string, task: Task): Observable<Task> {
-    return this.http.post<Task>(`${this.baseUrl}/${taskListId}/tasks`, task);
-  }
+  addTask(taskListId: string, taskData: Task) {
+    return this.http.post(`http://localhost:8080/task-lists/${taskListId}/tasks`, taskData);
+  }  
 
   updateTask(taskListId: string, taskId: string, updatedTask: Task): Observable<Task> {
     return this.http.put<Task>(`${this.baseUrl}/${taskListId}/tasks/${taskId}`, updatedTask);

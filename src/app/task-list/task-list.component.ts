@@ -21,7 +21,6 @@ export class TaskListComponent implements OnInit {
     dueDate: '',
     priority: 'Low',
     status: 'To Do',
-    completed: false
   };
   selectedIndex: number | null = null;
   taskListId: string = '';
@@ -29,12 +28,18 @@ export class TaskListComponent implements OnInit {
   constructor(private taskService: TaskService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    const taskListId = this.route.snapshot.paramMap.get('taskListId');
-    if (taskListId) {
-      this.taskListId = taskListId;
+    this.taskListId = localStorage.getItem('taskListId') || '';
+
+    if (this.taskListId) {
       this.taskService.getTasks(this.taskListId).subscribe((tasks: Task[]) => {
-        this.tasks = tasks;
+        if (tasks && tasks.length > 0) {
+          this.tasks = tasks;
+        } else {
+          console.log('No tasks found for this task list.');
+        }
       });
+    } else {
+      console.error('Task list ID is missing.');
     }
   }
 
