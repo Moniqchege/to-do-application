@@ -25,7 +25,8 @@ export class ModalPopupComponent implements OnChanges {
     dueDate: '',
     priority: 'Low',
     status: 'To Do',
-    ownerId: ''
+    ownerId: '',
+    taskListId: ''
   };
   @Input() index: number | null = null;
   @Input() saveFn!: (index: number, updatedTask: Task) => void;

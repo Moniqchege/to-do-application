@@ -8,6 +8,7 @@ export interface Task {
     ownerId: string;
     archived?: boolean;
     taskList?: string;
+    taskListId: string;
   }
   
    

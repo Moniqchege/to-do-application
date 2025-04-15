@@ -1,35 +1,83 @@
 <div class="admin-panel">
-    <h2>Admin Panel</h2>
-  
-    <div *ngFor="let userGroup of groupedTasks | keyvalue">
-      <h3>User: {{ userGroup.key }}</h3>
-  
-      <div *ngFor="let listGroup of userGroup.value | keyvalue">
-        <h4>Task List: {{ listGroup.key }}</h4>
-  
-        <table>
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Status</th>
-              <th>Due Date</th>
-              <th>Priority</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let task of listGroup.value">
-              <td>{{ task.title }}</td>
-              <td>{{ task.status }}</td>
-              <td>{{ task.dueDate }}</td>
-              <td>{{ task.priority }}</td>
-              <td>
-                <button *ngIf="task.status !== 'Archived'" (click)="archiveTask(task)">Archive</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+  <h2>Admin Panel</h2>
+
+  <div *ngFor="let userGroup of groupedTasks | keyvalue">
+    <h4>User: {{ userGroup.key }}</h4>
+
+    <div *ngFor="let listGroup of userGroup.value | keyvalue">
+      <h5>Task List: {{ listGroup.key }}</h5>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Owner</th>
+            <th>Status</th>
+            <th>Due Date</th>
+            <th>Priority</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let task of listGroup.value">
+            <td>{{ task.title }}</td>
+            <td>{{ task.ownerId }}</td>
+            <td>
+              <label for="taskStatus">Status:</label>
+              <select id="taskStatus" [(ngModel)]="task.status">
+                <option value="Pending">Pending</option>
+                <option value="Completed">Completed</option>
+                <option value="Archived">Archived</option>
+              </select>
+            </td>
+            <td>{{ task.dueDate }}</td>
+            <td>{{ task.priority }}</td>
+            <td>
+              <button (click)="openEditModal(task, task.ownerId, listGroup.key)">✏️ Edit</button>
+              <button (click)="deleteTask(task)">🗑️ Delete</button>
+              <button *ngIf="task.status !== 'Archived'" (click)="archiveTask(task.ownerId, listGroup.key, task.id)">📦 Archive</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
-  
+
+  <div class="modal" *ngIf="showEditModal">
+    <div class="modal-content">
+      <h3>Edit Task</h3>
+      <form (ngSubmit)="updateTask()">
+        <label>
+          Title:
+          <input [(ngModel)]="selectedTask.title" name="title" required />
+        </label>
+        <label>
+          Description:
+          <input [(ngModel)]="selectedTask.description" name="description" />
+        </label>
+        <label>
+          Due Date:
+          <input type="date" [(ngModel)]="selectedTask.dueDate" name="dueDate" />
+        </label>
+        <label>
+          Status:
+          <select [(ngModel)]="selectedTask.status" name="status">
+            <option value="Pending">Pending</option>
+            <option value="Completed">Completed</option>
+            <option value="Archived">Archived</option>
+          </select>
+        </label>
+        <label>
+          Priority:
+          <select [(ngModel)]="selectedTask.priority" name="priority">
+            <option value="Low">Low</option>
+            <option value="Normal">Normal</option>
+            <option value="High">High</option>
+          </select>
+        </label>
+        <button type="submit">Save</button>
+        <button type="button" (click)="closeModal()">Cancel</button>
+      </form>
+    </div>
+  </div>
+</div>

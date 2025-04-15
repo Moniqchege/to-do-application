@@ -33,7 +33,9 @@ export class SigninComponent {
     if (matchingUser) {
       localStorage.setItem('currentUser', JSON.stringify(matchingUser));
       localStorage.setItem('taskListId', matchingUser.taskListId);
-  
+      localStorage.setItem('userId', matchingUser.userId); // ✅ Add this line
+      localStorage.setItem('userRole', matchingUser.role); // Optional: if needed by task-list.component
+
       if (matchingUser.role === 'Admin') {
         this.router.navigate(['/admin']);
       } else {
@@ -43,8 +45,7 @@ export class SigninComponent {
       alert('Invalid email or password.');
     }
   }
-  
-  
+
   goToSignup() {
     this.router.navigate(['/signup']);
   }

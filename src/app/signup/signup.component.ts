@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TaskListComponent } from '../task-list/task-list.component';
 
 @Component({
   selector: 'app-signup',
@@ -34,31 +33,29 @@ export class SignupComponent {
     const adminEmail = 'admin1@gmail.com';
     const adminPassword = 'PassworD';
 
-    const fakeTaskListId = this.generateUUID();
+    const fakeTaskListId = this.generateUUID(); // Task list ID
+    const fakeUserId = this.generateUUID();     // New user ID
 
     const userRole = (
       this.signupObj.EmailId === adminEmail && 
       this.signupObj.password === adminPassword) ? 'Admin' : 'User';
 
     const newUser = {
+      userId: fakeUserId,
       firstName: this.signupObj.firstName,
       lastName: this.signupObj.lastName,
       email: this.signupObj.EmailId,
       password: this.signupObj.password,
       role: userRole,
-      TaskListId: fakeTaskListId
+      taskListId: fakeTaskListId   // ✅ Use lowercase for consistency
     };
 
     let users = JSON.parse(localStorage.getItem('users') || '[]');
-
     users.push(newUser);
-
     localStorage.setItem('users', JSON.stringify(users));
 
-    alert('Signup successful')
-    this.router.navigateByUrl('signin')
-
-
+    alert('Signup successful');
+    this.router.navigateByUrl('signin');
   }
 
   goToSignin() {

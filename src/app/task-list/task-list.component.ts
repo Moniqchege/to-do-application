@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Task } from '../task.model';
+import { TaskListService } from '../task-list.service';
 import { ModalPopupComponent } from '../modal-popup/modal-popup.component';
 
 @Component({
@@ -19,37 +20,53 @@ export class TaskListComponent implements OnInit {
     dueDate: '',
     priority: 'Low',
     status: 'To Do',
-    ownerId: ''
+    ownerId: '',
+    taskListId: ''
   };
   selectedIndex: number | null = null;
+  currentUserRole: string = '';
   taskListId: string = '';
+  showModal: boolean = false;
 
-  constructor() {}
+  constructor(private taskListService: TaskListService) {}
 
   ngOnInit(): void {
     this.taskListId = localStorage.getItem('taskListId') || '';
+    const currentUserId = localStorage.getItem('userId') || '';
+    console.log('Checking IDs:', this.taskListId, currentUserId);
 
-    if (this.taskListId) {
-      const storedTaskList = localStorage.getItem(this.taskListId);
-      if (storedTaskList) {
-        this.tasks = JSON.parse(storedTaskList);
-      } else {
-        console.log('No tasks found for this task list.');
-      }
-    } else {
-      console.error('Task list ID is missing.');
+
+    if (!this.taskListId || !currentUserId) {
+      console.error('Missing taskListId or userId in localStorage');
+      return;
     }
+
+    this.taskListService.setTaskListId(this.taskListId, currentUserId);
+
+    this.taskListService.tasks$.subscribe(tasks => {
+      console.log('Received tasks:', tasks);
+      this.tasks = tasks;
+    });
+  }
+
+  saveToStorage(): void {
+    this.taskListService.setTasks(this.tasks);
+  }
+
+  addTask(newTask: Task): void {
+    this.tasks.push(newTask);
+    this.saveToStorage();
   }
 
   openEdit(index: number): void {
-    this.selectedTask = { ...this.tasks[index] }; 
+    this.selectedTask = { ...this.tasks[index] };
     this.selectedIndex = index;
-    document.getElementById('modal')?.classList.add('open'); 
+    this.showModal = true;
   }
 
   closeModal(): void {
     this.selectedIndex = null;
-    document.getElementById('modal')?.classList.remove('open'); 
+    this.showModal = false;
   }
 
   saveEditedTask(index: number, updatedTask: Task): void {
@@ -60,26 +77,28 @@ export class TaskListComponent implements OnInit {
       return;
     }
 
-    const updatedTaskWithId = { ...updatedTask, id: taskId };
-    this.tasks[index] = updatedTaskWithId;
-    localStorage.setItem(this.taskListId, JSON.stringify(this.tasks));
+    this.tasks[index] = { ...updatedTask, id: taskId };
+    this.saveToStorage();
+    this.taskListService.updateTask(this.tasks[index]);
     this.closeModal();
   }
 
   deleteTask(index: number): void {
+    const taskId = this.tasks[index].id;
     this.tasks.splice(index, 1);
-    localStorage.setItem(this.taskListId, JSON.stringify(this.tasks));
+    this.saveToStorage();
+    this.taskListService.deleteTask(taskId);
   }
 
   markInProgress(index: number): void {
     this.tasks[index].status = 'In Progress';
-    localStorage.setItem(this.taskListId, JSON.stringify(this.tasks));
-    console.log('Task status updated to In Progress.');
+    this.saveToStorage();
+    this.taskListService.updateTask(this.tasks[index]);
   }
 
   markCompleted(index: number): void {
     this.tasks[index].status = 'Completed';
-    localStorage.setItem(this.taskListId, JSON.stringify(this.tasks));
-    console.log('Task status updated to Completed.');
+    this.saveToStorage();
+    this.taskListService.updateTask(this.tasks[index]);
   }
 }
