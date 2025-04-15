@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signin',
-  imports: [ FormsModule ],
+  standalone: true,
+  imports: [FormsModule],
   templateUrl: './signin.component.html',
   styleUrl: './signin.component.css'
 })
@@ -17,27 +18,33 @@ export class SigninComponent {
   router = inject(Router);
 
   onLogin() {
-    const storedUser = localStorage.getItem('user');
-    if (!storedUser) {
-      alert('No user found, please sign up first.');
+    const usersData = localStorage.getItem('users');
+  
+    if (!usersData) {
+      alert('No users found. Please sign up first.');
       return;
     }
-
-    const user = JSON.parse(storedUser);
-    console.log('Stored user:', user);
-    console.log('Login input:', this.loginObj);
-
-    if (this.loginObj.EmailId === user.email && this.loginObj.password === user.password) {
-      const taskListId = user.taskListId || 'default-task-list-id';  // Replace with dynamic fetch from backend if needed
-
-      localStorage.setItem('taskListId', taskListId);
-      
-      this.router.navigate(['/task-creation']);
+  
+    const users = JSON.parse(usersData);
+    const matchingUser = users.find((u: any) =>
+      u.email === this.loginObj.EmailId && u.password === this.loginObj.password
+    );
+  
+    if (matchingUser) {
+      localStorage.setItem('currentUser', JSON.stringify(matchingUser));
+      localStorage.setItem('taskListId', matchingUser.taskListId);
+  
+      if (matchingUser.role === 'Admin') {
+        this.router.navigate(['/admin']);
+      } else {
+        this.router.navigate(['/task-creation']);
+      }
     } else {
-      alert('Invalid email or password');
+      alert('Invalid email or password.');
     }
   }
-
+  
+  
   goToSignup() {
     this.router.navigate(['/signup']);
   }

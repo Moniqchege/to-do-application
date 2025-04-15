@@ -4,6 +4,7 @@ import { SigninComponent } from "./signin/signin.component";
 import { SignupComponent } from "./signup/signup.component";
 import { TaskCreationComponent } from "./task-creation/task-creation.component";
 import { TaskListComponent } from "./task-list/task-list.component";
+import { AdminComponent } from "./admin/admin.component";
 
 export const routes: Routes = [
     { 
@@ -24,7 +25,7 @@ export const routes: Routes = [
       component: LayoutComponent,
       children: [
         {
-          path: 'task-creation', // Create Task (no taskId)
+          path: 'task-creation', 
           component: TaskCreationComponent
         },
         {
@@ -32,12 +33,9 @@ export const routes: Routes = [
           component: TaskListComponent
         },
         {
-          path: 'task-lists/:taskListId/create-task', // Create Task for a specific taskListId
-          component: TaskCreationComponent
-        },
-        {
-          path: 'task-lists/:taskListId/edit-task/:id', // Edit Task for a specific taskListId and taskId
-          component: TaskCreationComponent
+          path: 'admin',
+          component: AdminComponent,
+          // canActivate: [AdminGuard]
         }
       ]
     }

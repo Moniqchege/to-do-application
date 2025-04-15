@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute, RouterOutlet } from '@angular/router';
-import { TaskService } from '../task.service';
 import { Task } from '../task.model';
 
 @Component({
@@ -14,14 +13,13 @@ import { Task } from '../task.model';
 })
 export class TaskCreationComponent {
   taskForm: FormGroup;
-  taskId: string | null = null; 
+  taskId: string | null = null;
   pageTitle = 'Create Task';
-
   taskListId: string = '';
+  taskList: any[] = [];
 
   constructor(
     private fb: FormBuilder,
-    private taskService: TaskService,
     private router: Router,
     private route: ActivatedRoute
   ) {
@@ -33,23 +31,24 @@ export class TaskCreationComponent {
       attachment: [null]
     });
 
-    this.taskListId = localStorage.getItem('taskListId') || '';  
+    this.taskListId = localStorage.getItem('taskListId') || '';
+
+    const storedTaskList = localStorage.getItem(this.taskListId);
+    if (storedTaskList) {
+      this.taskList = JSON.parse(storedTaskList);
+    } else {
+      this.taskList = [];
+    }
 
     const taskIdParam = this.route.snapshot.paramMap.get('id');
     if (taskIdParam) {
       this.taskId = taskIdParam;
 
-      this.taskService.getTask(this.taskListId, this.taskId).subscribe({
-        next: (task) => {
-          if (task) {
-            this.pageTitle = 'Edit Task';
-            this.taskForm.patchValue(task);
-          }
-        },
-        error: (err) => {
-          console.error('Error fetching task:', err);
-        }
-      });
+      const task = this.taskList.find((task) => task.id === this.taskId);
+      if (task) {
+        this.pageTitle = 'Edit Task';
+        this.taskForm.patchValue(task);
+      }
     }
   }
 
@@ -73,23 +72,21 @@ export class TaskCreationComponent {
     const taskData: Task = this.taskForm.value;
 
     if (this.taskId) {
-      this.taskService.updateTask(this.taskListId, this.taskId, taskData).subscribe({
-        next: () => {
-          this.router.navigate(['/task-list']);
-        },
-        error: (err) => {
-          console.error('Error updating task:', err);
-        }
-      });
+      const taskIndex = this.taskList.findIndex(task => task.id === this.taskId);
+      if (taskIndex !== -1) {
+        this.taskList[taskIndex] = { ...this.taskList[taskIndex], ...taskData };
+        localStorage.setItem(this.taskListId, JSON.stringify(this.taskList));
+      }
     } else {
-      this.taskService.addTask(this.taskListId, taskData).subscribe({
-        next: () => {
-          this.router.navigate(['/task-list']);
-        },
-        error: (err) => {
-          console.error('Error creating task:', err);
-        }
-      });
+      const newTask = { ...taskData, id: this.generateUniqueId() };
+      this.taskList.push(newTask);
+      localStorage.setItem(this.taskListId, JSON.stringify(this.taskList));
     }
+
+    this.router.navigate(['/task-list']);
+  }
+
+  private generateUniqueId(): string {
+    return 'task-' + Math.random().toString(36).substr(2, 9); 
   }
 }

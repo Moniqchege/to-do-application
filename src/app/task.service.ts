@@ -1,38 +1,81 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { Task } from './task.model';
-import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
-  private baseUrl = `${environment.apiUrl}/task-lists`;
+  private localStorageKey = 'taskList';
 
-  constructor(private http: HttpClient) {}
+  constructor() {}
 
-  getTask(taskListId: string, taskId: string): Observable<Task> {
-    return this.http.get<Task>(`${this.baseUrl}/${taskListId}/tasks/${taskId}`);
+  private getTaskList(): any[] {
+    const taskListId = localStorage.getItem('taskListId');
+    if (!taskListId) return []; 
+
+    const taskList = JSON.parse(localStorage.getItem(taskListId) || '[]');
+    return taskList;
   }
 
-  getTasks(taskListId: string): Observable<Task[]> {
-    return this.http.get<Task[]>(`${this.baseUrl}/${taskListId}/tasks`);
+  private saveTaskList(taskList: any[]): void {
+    const taskListId = localStorage.getItem('taskListId');
+    if (taskListId) {
+      localStorage.setItem(taskListId, JSON.stringify(taskList));
+    }
   }
 
-  addTask(taskListId: string, taskData: Task) {
-    return this.http.post(`http://localhost:8080/task-lists/${taskListId}/tasks`, taskData);
-  }  
-
-  updateTask(taskListId: string, taskId: string, updatedTask: Task): Observable<Task> {
-    return this.http.put<Task>(`${this.baseUrl}/${taskListId}/tasks/${taskId}`, updatedTask);
+  getTask(taskListId: string, taskId: string): Task | null {
+    const taskList = this.getTaskList();
+    return taskList.find(task => task.id === taskId) || null;
   }
 
-  deleteTask(taskListId: string, taskId: string): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/${taskListId}/tasks/${taskId}`);
+  getTasks(): Task[] {
+    const data = localStorage.getItem(this.localStorageKey);
+    return data ? JSON.parse(data) : [];
   }
 
-  updateTaskStatus(taskListId: string, taskId: string, status: string): Observable<Task> {
-    return this.http.put<Task>(`${this.baseUrl}/${taskListId}/tasks/${taskId}`, { status });
+  addTask(taskListId: string, taskData: Task): void {
+    const taskList = this.getTaskList();
+    taskData.id = this.generateTaskId(); 
+    taskList.push(taskData);
+    this.saveTaskList(taskList);
+  }
+
+  updateTask(taskListId: string, taskId: string, updatedTask: Task): void {
+    const taskList = this.getTaskList();
+    const taskIndex = taskList.findIndex(task => task.id === taskId);
+    if (taskIndex !== -1) {
+      taskList[taskIndex] = { ...taskList[taskIndex], ...updatedTask }; 
+      this.saveTaskList(taskList);
+    }
+  }
+
+  deleteTask(taskListId: string, taskId: string): void {
+    let taskList = this.getTaskList();
+    taskList = taskList.filter(task => task.id !== taskId);
+    this.saveTaskList(taskList);
+  }
+
+  private generateTaskId(): string {
+    return Math.random().toString(36).substr(2, 9); // Simple ID generation
+  }
+
+  updateTaskStatus(taskListId: string, taskId: string, status: string): void {
+    const taskList = this.getTaskList();
+    const task = taskList.find(task => task.id === taskId);
+    if (task) {
+      task.status = status;
+      this.saveTaskList(taskList);
+    }
+  }
+  archiveTask(taskId: string): void {
+    const tasks = this.getTasks();
+    const updatedTasks = tasks.map(task => {
+      if (task.id === taskId) {
+        return { ...task, status: 'Archived' };
+      }
+      return task;
+    });
+    this.saveTaskList(updatedTasks);
   }
 }

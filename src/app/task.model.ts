@@ -3,8 +3,11 @@ export interface Task {
     title: string;
     description: string;
     dueDate: string;
-    priority: string;
-    status: string;
+    priority: 'Low' | 'Medium' | 'High';
+    status: 'To Do' | 'In Progress' | 'Completed' | 'Archived';
+    ownerId: string;
+    archived?: boolean;
+    taskList?: string;
   }
   
-  
+   

@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  OnChanges,
+  SimpleChanges
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Task } from '../task.model';
@@ -10,19 +17,34 @@ import { Task } from '../task.model';
   templateUrl: './modal-popup.component.html',
   styleUrls: ['./modal-popup.component.css']
 })
-export class ModalPopupComponent {
+export class ModalPopupComponent implements OnChanges {
   @Input() task: Task = {
     id: '',
     title: '',
     description: '',
     dueDate: '',
     priority: 'Low',
-    status: '',
+    status: 'To Do',
+    ownerId: ''
   };
   @Input() index: number | null = null;
   @Input() saveFn!: (index: number, updatedTask: Task) => void;
 
   @Output() modalClosed = new EventEmitter<void>();
+
+  showModal = false;
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['index'] && this.index !== null) {
+      this.showModal = true;
+    }
+  }
+
+  ngOnInit(): void {
+    if (!this.task.status) {
+      this.task.status = 'To Do';
+    }
+  }
 
   save(): void {
     if (this.index !== null) {
@@ -32,6 +54,7 @@ export class ModalPopupComponent {
   }
 
   closeModal(): void {
+    this.showModal = false;
     this.modalClosed.emit();
   }
 }

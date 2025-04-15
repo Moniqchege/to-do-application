@@ -1,0 +1,35 @@
+<div class="admin-panel">
+    <h2>Admin Panel</h2>
+  
+    <div *ngFor="let userGroup of groupedTasks | keyvalue">
+      <h3>User: {{ userGroup.key }}</h3>
+  
+      <div *ngFor="let listGroup of userGroup.value | keyvalue">
+        <h4>Task List: {{ listGroup.key }}</h4>
+  
+        <table>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Status</th>
+              <th>Due Date</th>
+              <th>Priority</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let task of listGroup.value">
+              <td>{{ task.title }}</td>
+              <td>{{ task.status }}</td>
+              <td>{{ task.dueDate }}</td>
+              <td>{{ task.priority }}</td>
+              <td>
+                <button *ngIf="task.status !== 'Archived'" (click)="archiveTask(task)">Archive</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
